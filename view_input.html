@@ -1,0 +1,67 @@
+<!-- ==================== MASTER DATA VIEW ==================== -->
+      <div id="view-input" class="hidden fade-up pb-10">
+        <div class="mb-6 relative">
+          <i class="fa-solid fa-layer-group absolute start-4 top-3.5 text-indigo-500 z-10 pointer-events-none"></i>
+          <select id="master-type-select" onchange="switchMaster(this.value)" class="w-full ps-11 pe-4 py-3 bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-slate-600 dark:text-slate-300 font-bold focus:ring-2 focus:ring-primary appearance-none shadow-sm cursor-pointer transition-all hover:border-primary">
+              <option value="bank" data-i18n="opt_bank">🏦   Bank</option>
+              <option value="ewallet" data-i18n="opt_ewallet">📱   E-Wallet</option>
+              <option value="tunai" data-i18n="opt_cash">💵   Tunai</option>
+              <option value="investasi" data-i18n="opt_invest">💎   Investasi</option>
+              <option value="tabungan" data-i18n="opt_saving">🐷   Tabungan</option>
+              <option value="hutang" data-i18n="opt_debt">🧾   Hutang</option>
+              <option value="piutang" data-i18n="opt_receivable">🤲   Piutang</option>
+              <option value="rencana" data-i18n="opt_plan">📅   Rencana</option>
+            </select>
+          <i class="fa-solid fa-chevron-down absolute end-4 top-4 text-slate-400 pointer-events-none"></i>
+        </div>
+
+        <div id="investasi-summary-container" class="hidden grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+        </div>
+
+        <div id="master-summary-card"
+          class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl p-6 text-white shadow-lg mb-6 relative overflow-hidden transition-all duration-500 bounce-card">
+          <div class="relative z-10 flex justify-between items-center">
+            <div>
+              <p class="text-xs font-bold opacity-80 uppercase tracking-widest mb-1" id="master-total-label">TOTAL BANK
+              </p>
+              <h3 class="text-3xl md:text-4xl font-bold tracking-tight nominal-card-value text-start" dir="ltr"
+                id="master-total-value">Rp 0</h3>
+              <p class="text-[10px] opacity-70 mt-1" id="master-total-count">0 Data terdaftar</p>
+            </div>
+            <div class="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+              <i id="master-total-icon" class="fa-solid fa-building-columns text-3xl text-white"></i>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="openModal()" class="mb-6 bg-emerald-500 hover:bg-emerald-600 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-lg flex items-center gap-2 transform active:scale-95 transition-transform"><i class="fa-solid fa-plus text-white"></i> <span data-i18n="btn_add_data">Tambah Data</span></button>
+
+        <div
+          class="bg-white dark:bg-darkcard rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden bounce-card">
+          <div class="p-5 border-b dark:border-slate-700 flex justify-between gap-4">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-slate-400 uppercase" data-i18n="show">Show</span>
+              <select id="table-limit" onchange="changeLimit(this.value)" class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg text-xs p-2 font-bold outline-none focus:ring-2 focus:ring-primary"><option value="5">5</option><option value="10">10</option><option value="25">25</option></select>
+            </div>
+            <div class="relative w-full md:w-64">
+              <i class="fa-solid fa-search absolute start-3 top-3.5 text-slate-400 pointer-events-none"></i>
+              <input type="text" id="table-search" data-i18n-ph="search" onkeyup="handleSearch(this.value)" class="p-2.5 ps-9 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-sm w-full outline-none focus:ring-2 focus:ring-primary transition-all placeholder-slate-300 dark:placeholder-slate-600">
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-start">
+              <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 text-sm uppercase font-bold">
+                <tr id="table-head-row"></tr>
+              </thead>
+              <tbody id="table-body-master" class="text-base divide-y divide-slate-100 dark:divide-slate-700"></tbody>
+            </table>
+          </div>
+          <div class="p-4 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
+            <span id="page-info" class="text-xs font-bold text-slate-400">...</span>
+            <div class="flex gap-2">
+              <button id="btn-prev" onclick="changePage(-1)" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors shadow-sm" data-i18n="btn_prev">Prev</button>
+              <button id="btn-next" onclick="changePage(1)" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors shadow-sm" data-i18n="btn_next">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>

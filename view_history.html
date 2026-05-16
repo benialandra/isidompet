@@ -1,0 +1,191 @@
+<!-- ==================== HISTORY VIEW ==================== -->
+<div id="view-history" class="hidden fade-up pb-10">
+
+  <!-- Filter Header -->
+  <div
+    class="bg-white dark:bg-darkcard p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 mb-6 bounce-card">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label class="text-xs font-bold text-slate-400 uppercase" data-i18n="filter_from">Dari Tanggal</label>
+        <input type="date" id="history-start" class="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-sm mt-1 outline-none focus:ring-2 focus:ring-primary transition-all text-start">
+      </div>
+      <div>
+        <label class="text-xs font-bold text-slate-400 uppercase" data-i18n="filter_to">Sampai Tanggal</label>
+        <input type="date" id="history-end" class="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-sm mt-1 outline-none focus:ring-2 focus:ring-primary transition-all text-start">
+      </div>
+      <div>
+        <label class="text-xs font-bold text-slate-400 uppercase" data-i18n="filter_type">Tipe</label>
+        <select id="history-type" onchange="applyHistoryFilters()" class="w-full p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-sm mt-1 outline-none focus:ring-2 focus:ring-primary transition-all">
+                  <option value="" data-i18n="filter_all_type">Semua Tipe</option>
+                  <option value="PEMASUKAN" data-i18n="filter_income">Pemasukan</option>
+                  <option value="PENGELUARAN" data-i18n="filter_expense">Pengeluaran</option>
+                  <option value="TRANSFER" data-i18n="filter_transfer">Transfer</option>
+              </select>
+      </div>
+      <div class="flex items-end gap-2">
+        <button onclick="applyHistoryFilters()" class="flex-1 bg-slate-800 dark:bg-primary text-white font-bold py-2.5 rounded-xl shadow mt-1 hover:opacity-90 transform active:scale-95 transition-transform flex items-center justify-center gap-2"><i class="fa-solid fa-filter text-white"></i> <span data-i18n="btn_filter">Filter</span></button>
+        <button onclick="resetHistoryFilter()" class="w-12 bg-gray-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold py-2.5 rounded-xl shadow mt-1 hover:bg-gray-300 dark:hover:bg-slate-600 transform active:scale-95 transition-transform flex items-center justify-center" title="Reset"><i class="fa-solid fa-rotate-left text-indigo-500"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW: AI Chat Assistant Card & Charts -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+    <div
+      class="lg:col-span-2 bg-white dark:bg-darkcard p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 h-[400px] flex flex-col bounce-card">
+      <h3 class="font-bold text-slate-700 dark:text-white mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-chart-line text-emerald-500"></i>
+        <span data-i18n="history_trend">Tren Transaksi Bulanan</span>
+      </h3>
+      <div class="flex-1 relative min-h-0" dir="ltr"><canvas id="chartHistoryLine"></canvas></div>
+    </div>
+    <div
+      class="lg:col-span-1 bg-gradient-to-br from-indigo-50 to-slate-100 dark:from-slate-800 dark:to-indigo-950 p-6 rounded-3xl shadow-lg border border-indigo-100 dark:border-slate-700 flex flex-col text-slate-700 dark:text-white relative overflow-hidden h-[400px] transition-colors duration-300">
+
+      <div class="relative z-10 flex flex-col h-full w-full">
+        <!-- Header Chat -->
+        <h3
+          class="font-bold mb-3 flex items-center gap-2 border-b border-indigo-200 dark:border-white/20 pb-2 transition-colors duration-300">
+          <i class="fa-solid fa-robot text-indigo-500 dark:text-indigo-200 animate-pulse"></i>
+          <span data-i18n="ai_assistant">AI Financial Advisor</span>
+        </h3>
+
+        <!-- Chat Body -->
+        <div id="ai-chat-box" class="flex-1 overflow-y-auto text-sm pr-2 space-y-3 flex flex-col scroll-smooth">
+          <!-- Initial Greeting -->
+          <div
+            class="bg-white dark:bg-white/10 border border-slate-200 dark:border-transparent p-3 rounded-2xl rounded-tl-none w-11/12 text-slate-700 dark:text-indigo-50 backdrop-blur-sm self-start shadow-sm transition-colors duration-300">
+            <p id="ai-greeting" data-i18n="ai_greeting">Halo! Saya asisten keuangan cerdas Anda. Ada yang bisa
+              saya bantu terkait laporan bulan ini?</p>
+          </div>
+        </div>
+
+        <!-- Input Box -->
+        <div class="mt-3 flex gap-2 relative shrink-0">
+          <input type="text" id="ai-input" data-i18n-ph="ph_ask_ai" placeholder="Tanya AI..." class="w-full bg-white dark:bg-white/10 border border-indigo-200 dark:border-white/20 rounded-full py-2 px-4 text-sm text-slate-700 dark:text-white placeholder-slate-400 dark:placeholder-indigo-200 outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-white/30 dark:focus:bg-white/20 transition-all shadow-sm dark:shadow-none" onkeypress="if(event.key === 'Enter') sendAIChat()">
+
+          <button onclick="sendAIChat()" class="w-10 h-10 rounded-full bg-indigo-600 dark:bg-white text-white dark:text-indigo-600 hover:bg-indigo-700 dark:hover:bg-indigo-50 flex items-center justify-center shadow-lg transition-transform active:scale-90 shrink-0"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+
+      <!-- Background Icon Transparan -->
+      <i class="fa-solid fa-brain absolute -bottom-6 -right-6 text-9xl text-indigo-600 dark:text-white opacity-5 dark:opacity-10 transition-colors duration-300 pointer-events-none"></i>
+    </div>
+
+    <!-- LINE CHART -->
+
+
+    <!-- DONUT 1 -->
+    <div
+      class="lg:col-span-1 bg-white dark:bg-darkcard p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 bounce-card h-[380px] flex flex-col">
+      <h3 class="font-bold text-slate-700 dark:text-white mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-chart-pie text-purple-500"></i>
+        <span data-i18n="history_cat">Pengeluaran Per Kategori</span>
+      </h3>
+      <div class="flex-1 relative min-h-0" dir="ltr"><canvas id="chartHistoryDonut"></canvas></div>
+    </div>
+
+    <!-- DONUT 2 -->
+    <div
+      class="lg:col-span-1 bg-white dark:bg-darkcard p-6 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 bounce-card h-[380px] flex flex-col">
+      <h3 class="font-bold text-slate-700 dark:text-white mb-2 flex items-center gap-2">
+        <i class="fa-solid fa-wallet text-amber-500"></i>
+        <span data-i18n="history_source">Penggunaan Sumber Dana</span>
+      </h3>
+      <div class="flex-1 relative min-h-0" dir="ltr"><canvas id="chartHistorySourceDonut"></canvas></div>
+    </div>
+    <!-- CARD KURS MATA UANG (LIVE) -->
+    <!-- CARD KURS & EMAS (LIVE) -->
+    <div
+      class="bg-white dark:bg-darkcard p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 h-[380px] flex flex-col relative overflow-hidden min-w-0">
+      <h3 class="font-bold text-slate-700 dark:text-white mb-3 flex items-center gap-2 shrink-0">
+        <i class="fa-solid fa-money-bill-trend-up text-blue-500"></i> <span>Kurs & Emas (Live)</span>
+      </h3>
+
+      <div class="flex-1 flex flex-col gap-2.5 justify-center relative z-10 w-full" id="currency-rates-container">
+
+        <!-- Baris EMAS (1 Gram) -->
+        <div
+          class="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl shadow-sm border border-amber-200/50 dark:border-amber-700/50">
+          <div class="flex items-center gap-3 shrink-0">
+            <div
+              class="w-7 h-7 rounded-full bg-amber-100 dark:bg-amber-800 flex items-center justify-center text-amber-500 shadow-inner text-sm">
+              <i class="fa-solid fa-coins"></i>
+            </div>
+            <span class="font-bold text-slate-700 dark:text-slate-200 text-sm">Emas (1g)</span>
+          </div>
+          <span class="font-bold text-base text-amber-600 dark:text-amber-400 nominal-card-value text-right" id="rate-gold" dir="ltr">Memuat...</span>
+        </div>
+
+        <!-- Baris 1 USD -->
+        <div  class="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-purple-50 dark:from-amber-900/20 dark:to-purple-900/20 rounded-2xl shadow-sm border border-amber-200/50 dark:border-amber-700/50">
+          <div class="flex items-center gap-3 shrink-0">
+            <span class="fi fi-us text-xl rounded-sm shadow-sm"></span>
+            <span class="font-bold text-slate-600 dark:text-slate-300 text-sm">1 USD</span>
+          </div>
+          <span class="font-bold text-base text-emerald-600 dark:text-emerald-400 nominal-card-value text-right" id="rate-usd" dir="ltr">Memuat...</span>
+        </div>
+
+        <!-- Baris 1 SGD -->
+        <div  class="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-red-50 dark:from-amber-900/20 dark:to-red-900/20 rounded-2xl shadow-sm border border-amber-200/50 dark:border-amber-700/50">
+          <div class="flex items-center gap-3 shrink-0">
+            <span class="fi fi-sg text-xl rounded-sm shadow-sm"></span>
+            <span class="font-bold text-slate-600 dark:text-slate-300 text-sm">1 SGD</span>
+          </div>
+          <span class="font-bold text-base text-emerald-600 dark:text-emerald-400 nominal-card-value text-right" id="rate-sgd" dir="ltr">Memuat...</span>
+        </div>
+
+        <!-- Baris 1 MYR -->
+        <div  class="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-gold-50 dark:from-amber-900/20 dark:to-gold-900/20 rounded-2xl shadow-sm border border-amber-200/50 dark:border-amber-700/50">
+          <div class="flex items-center gap-3 shrink-0">
+            <span class="fi fi-my text-xl rounded-sm shadow-sm"></span>
+            <span class="font-bold text-slate-600 dark:text-slate-300 text-sm">1 MYR</span>
+          </div>
+          <span class="font-bold text-base text-emerald-600 dark:text-emerald-400 nominal-card-value text-right" id="rate-myr" dir="ltr">Memuat...</span>
+        </div>
+
+      </div>
+      <!-- Background Icon Transparan -->
+      <i class="fa-solid fa-gem absolute -bottom-4 -right-4 text-7xl text-slate-100 dark:text-slate-800 opacity-30 pointer-events-none"></i>
+    </div>
+
+  </div>
+
+  <div
+    class="bg-white dark:bg-darkcard rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden bounce-card">
+    <div class="p-5 border-b dark:border-slate-700 flex justify-between gap-4 items-center">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold text-slate-400 uppercase" data-i18n="show">Show</span>
+        <select id="history-limit" onchange="changeHistoryLimit(this.value)" class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg text-xs p-2 font-bold outline-none focus:ring-2 focus:ring-primary">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+        <span id="history-total-badge" class="text-xs font-bold bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-full ml-2 shadow-sm">0 Data</span>
+      </div>
+      <div class="relative w-full md:w-64">
+        <i class="fa-solid fa-search absolute start-3 top-3.5 text-slate-400 pointer-events-none"></i>
+        <input type="text" id="history-search" data-i18n-ph="search_history" onkeyup="handleHistorySearch()" class="p-2.5 ps-9 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-sm w-full outline-none focus:ring-2 focus:ring-primary transition-all placeholder-slate-300 dark:placeholder-slate-600">
+      </div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-start">
+        <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 text-sm uppercase font-bold"
+          id="history-head-row">
+        </thead>
+        <tbody id="history-body" class="text-base divide-y divide-slate-100 dark:divide-slate-700">
+          <tr>
+            <td colspan="9" class="p-6 text-center text-slate-400" data-i18n="loading_data">Memuat...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="p-4 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
+      <span id="history-page-info" class="text-xs font-bold text-slate-400">...</span>
+      <div class="flex gap-2">
+        <button id="btn-history-prev" onclick="changeHistoryPage(-1)" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors shadow-sm" data-i18n="btn_prev">Prev</button>
+        <button id="btn-history-next" onclick="changeHistoryPage(1)" class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors shadow-sm" data-i18n="btn_next">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
