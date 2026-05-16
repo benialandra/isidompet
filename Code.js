@@ -1,7 +1,3 @@
-/* ==================================================
-   BACKEND SYSTEM - Isi Dompet (FULL INTEGRATED)
-   ================================================== */
-
 function doGet() {
   return HtmlService.createTemplateFromFile('index').evaluate()
     .setTitle('Isi Dompet')
@@ -9,7 +5,6 @@ function doGet() {
     .addMetaTag('viewport', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
 }
 
-/* --- AUTH --- */
 function doLogin(username, password) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName('user');
@@ -38,7 +33,7 @@ function changeUserPassword(username, oldPass, newPass) {
   return { success: false, message: "Gagal update: Username atau Password Lama salah" };
 }
 
-/* --- DASHBOARD DATA --- */
+
 function getDashboardData() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const tz = Session.getScriptTimeZone();
@@ -123,7 +118,6 @@ function getDashboardData() {
   };
 }
 
-/* --- MASTER DATA CRUD --- */
 function getMasterData(type) {
   let sheetName = type;
   if (type === 'piutang') sheetName = 'hutang';
@@ -157,7 +151,8 @@ function saveMasterData(type, form) {
     }
   }
 
-  // LOGIKA KHUSUS INVESTASI BARU (DENGAN SUMBER DANA)
+
+
   if (type === 'investasi' && !form.id && form.f_sumber) {
     const sumberInfo = JSON.parse(form.f_sumber);
     const resSaldo = updateSaldoMaster(sumberInfo, -saldoBersih); // Kurangi Saldo Sumber
@@ -325,7 +320,8 @@ function saveTransaction(form) {
   }
 }
 
-/* --- LOGIKA PENDUKUNG --- */
+
+
 function cutPlanBalance(namaKategori, nominalKeluar) {
   const ws = getSheetSafe('rencana');
   if (!ws) return false;
@@ -470,14 +466,13 @@ function paksaIzin() {
   UrlFetchApp.fetch("https://www.google.com");
 }
 
-/* ==================================================   
-   INTEGRASI GEMINI AI CHATBOT
-   ================================================== */
 
-const GROQ_API_KEY = "YOUR_API_KEY";
+
+const GROQ_API_KEY = "YOUR_GROQ_API_KEY_HERE";
 
 function askGeminiAI(userMessage, currentDataSummary) {
-  // Endpoint resmi dari Groq API
+
+
   const url = "https://api.groq.com/openai/v1/chat/completions";
 
   const systemPrompt = `Kamu adalah asisten keuangan pribadi yang ramah, profesional, dan pintar bernama "Isi Dompet".
@@ -490,7 +485,7 @@ function askGeminiAI(userMessage, currentDataSummary) {
   3. Jika user menyapa, balas sapaannya.
   4. Jika user curhat atau minta saran keuangan, berikan nasihat berdasarkan data di atas.`;
 
-  // Kita gunakan LLaMA 3 8B (sangat cepat dan cerdas)
+
   const payload = {
     "model": "llama-3.3-70b-versatile",
     "messages": [
@@ -514,7 +509,7 @@ function askGeminiAI(userMessage, currentDataSummary) {
     const response = UrlFetchApp.fetch(url, options);
     const json = JSON.parse(response.getContentText());
 
-    // Jika sukses
+
     if (json.choices && json.choices.length > 0) {
       return json.choices[0].message.content;
     }
@@ -531,9 +526,6 @@ function askGeminiAI(userMessage, currentDataSummary) {
 }
 
 
-/* ==================================================
-   AJAX VIEW FETCHER
-   ================================================== */
 function getViewHtml(filename) {
   try {
     return HtmlService.createHtmlOutputFromFile(filename).getContent();

@@ -1,0 +1,109 @@
+<!-- ==================== DASHBOARD VIEW ==================== -->
+      <div id="view-dashboard" class="fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+          <div
+            class="p-6 bg-white dark:bg-darkcard rounded-3xl shadow-sm border-s-4 border-purple-500 bounce-card cursor-pointer group">
+            <div class="flex justify-between items-start gap-2">
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider group-hover:text-purple-500 transition-colors truncate"
+                  data-i18n="card_available">DANA AVAILABLE</p>
+                <h3 class="text-2xl md:text-3xl font-bold tracking-tight truncate nominal-card-value text-start"
+                  id="val-card1">Rp 0</h3>
+              </div>
+              <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-2xl text-purple-500 shrink-0">
+                <i class="fa-solid fa-hand-holding-dollar text-xl text-purple-500"></i>
+              </div>
+            </div>
+          </div>
+          <div
+            class="p-6 bg-white dark:bg-darkcard rounded-3xl shadow-sm border-s-4 border-red-500 bounce-card cursor-pointer group">
+            <div class="flex justify-between items-start gap-2">
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider group-hover:text-red-500 transition-colors truncate"
+                  data-i18n="card_expense">PENGELUARAN</p>
+                <h3 class="text-2xl md:text-3xl font-bold tracking-tight truncate nominal-card-value text-start"
+                  id="val-card2">Rp 0</h3>
+              </div>
+              <div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-2xl text-red-500 shrink-0">
+                <i class="fa-solid fa-wallet text-xl text-red-500"></i>
+              </div>
+            </div>
+          </div>
+          <div
+            class="p-6 bg-white dark:bg-darkcard rounded-3xl shadow-sm border-s-4 border-amber-500 bounce-card cursor-pointer group">
+            <div class="flex justify-between items-start gap-2">
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider group-hover:text-amber-500 transition-colors truncate"
+                  data-i18n="card_planning">DANA PLANNING</p>
+                <h3
+                  class="text-2xl font-bold text-slate-800 dark:text-white mt-1 truncate nominal-card-value text-start"
+                  id="val-card3">Rp 0</h3>
+              </div>
+              <div class="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-2xl text-amber-500 shrink-0">
+                <i class="fa-solid fa-file-invoice-dollar text-xl text-amber-500"></i>
+              </div>
+            </div>
+          </div>
+          <div
+            class="p-6 bg-white dark:bg-darkcard rounded-3xl shadow-sm border-s-4 border-emerald-500 bounce-card cursor-pointer group">
+            <div class="flex justify-between items-start gap-2">
+              <div class="flex-1 min-w-0">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider group-hover:text-emerald-500 transition-colors truncate"
+                  data-i18n="card_investment">INVESTASI</p>
+                <h3
+                  class="text-2xl font-bold text-slate-800 dark:text-white mt-1 truncate nominal-card-value text-start"
+                  id="val-card4">Rp 0</h3>
+              </div>
+              <div class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl text-emerald-500 shrink-0">
+                <i class="fa-solid fa-gem text-xl text-emerald-500"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
+          <div class="bg-white dark:bg-darkcard p-6 rounded-3xl shadow-sm h-[380px] flex flex-col bounce-card">
+            <h3 class="font-bold text-slate-700 dark:text-white mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-scale-balanced text-blue-500"></i> <span data-i18n="chart_cashflow">Cashflow</span>
+            </h3>
+            <div class="flex-1 relative min-h-0" dir="ltr"><canvas id="chartDashboardDonut"></canvas></div>
+          </div>
+          <div
+            class="xl:col-span-2 bg-white dark:bg-darkcard p-6 rounded-3xl shadow-sm h-[380px] flex flex-col bounce-card">
+            <h3 class="font-bold text-slate-700 dark:text-white mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-chart-line text-emerald-500"></i>
+              <span data-i18n="chart_trend30">Tren 7 Hari</span>
+            </h3>
+            <div class="flex-1 relative min-h-0" dir="ltr"><canvas id="chartLine"></canvas></div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white dark:bg-darkcard rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden bounce-card">
+          <div class="p-6 border-b dark:border-slate-700 flex justify-between items-center">
+            <h3 class="font-bold text-slate-700 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-clock-rotate-left text-amber-500"></i>
+              <span data-i18n="recent_trx">Transaksi Terakhir</span>
+            </h3>
+            <button onclick="nav('history')" class="text-xs font-bold text-primary hover:text-indigo-600 transition-colors" data-i18n="see_all">Lihat History</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-start">
+              <thead class="bg-slate-50 dark:bg-slate-800/50 text-slate-500 text-sm uppercase font-bold">
+                <tr>
+                  <th class="p-4 text-start" data-i18n="th_date">Tanggal</th>
+                  <th class="p-4 text-start" data-i18n="th_type">Tipe</th>
+                  <th class="p-4 text-start" data-i18n="table_source">Sumber Dana</th>
+                  <th class="p-4 text-start" data-i18n="table_desc">Keterangan</th>
+                  <th class="p-4 text-end" data-i18n="table_amount">Nominal</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-recent-table" class="text-base divide-y divide-slate-100 dark:divide-slate-700">
+                <tr>
+                  <td colspan="5" class="p-6 text-center text-slate-400" data-i18n="loading_data">Memuat Data...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
