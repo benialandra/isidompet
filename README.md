@@ -52,61 +52,6 @@
     *   [Groq API](https://groq.com/) untuk layanan AI Chat.
     *   [Currency API](https://github.com/fawazahmed0/currency-api) untuk data kurs mata uang.
 
----
-
-## 🚀 Panduan Instalasi
-
-Untuk menjalankan aplikasi ini di akun Google Anda, ikuti langkah-langkah berikut:
-
-1.  **Buat Google Sheet Baru**:
-    *   Buka [sheets.new](https://sheets.new) di browser Anda.
-    *   Beri nama spreadsheet, misalnya "Database Isi Dompet".
-
-2.  **Buka Editor Apps Script**:
-    *   Dari menu Google Sheet, klik `Extensions` > `Apps Script`.
-
-3.  **Salin Kode Backend**:
-    *   Salin seluruh konten dari file `Code.js` dan tempelkan ke dalam file `Code.gs` di editor Apps Script.
-
-4.  **Buat File Frontend**:
-    *   Di editor Apps Script, klik ikon `+` > `HTML` untuk membuat file-file berikut. Salin-tempel konten yang sesuai ke dalamnya:
-        *   `index.html`
-        *   `view_dashboard.html`
-        *   `view_transaksi.html`
-        *   `view_input.html`
-        *   `view_history.html`
-        *   `view_profile.html`
-    *   Klik ikon `+` > `Script` untuk membuat file JavaScript:
-        *   `app.js` (Pastikan nama file diakhiri dengan `.js`)
-
-5.  **Konfigurasi API Key**:
-    *   Di dalam file `Code.gs`, cari baris `const GROQ_API_KEY = "YOUR_API_KEY";`.
-    *   Ganti `"YOUR_API_KEY"` dengan API Key yang Anda dapatkan dari GroqCloud.
-
-6.  **Siapkan Sheet di Database**:
-    *   Kembali ke Google Sheet Anda. Buat sheet-sheet baru dengan nama dan kolom persis seperti di bawah ini:
-        *   `user`: `ID`, `Username`, `Password`, `Last Update`
-        *   `bank`: `ID`, `Nama`, `Saldo`, `Last Update`
-        *   `ewallet`: `ID`, `Nama`, `Saldo`, `Last Update`
-        *   `tunai`: `ID`, `Nama`, `Saldo`, `Last Update`
-        *   `investasi`: `ID`, `Nama`, `Kategori`, `Nilai`, `Last Update`
-        *   `tabungan`: `ID`, `Saldo`, `Deskripsi`, `Last Update`
-        *   `rencana`: `ID`, `Nama`, `Kategori`, `Budget`, `Last Update`
-        *   `hutang`: `ID`, `Kategori`, `Keterangan`, `Sumber`, `Saldo Awal`, `Sisa`, `Status`, `Last Update`
-        *   `transaksi`: `ID`, `Kode`, `Kategori`, `Keterangan`, `Sumber`, `Nominal`, `Saldo Awal`, `Saldo Akhir`, `Tanggal`
-        *   `history`: `Tipe`, `Kategori`, `Deskripsi`, `Sumber`, `Nominal`, `Saldo Awal`, `Saldo Akhir`, `Tanggal`
-
-7.  **Deploy sebagai Web App**:
-    *   Di editor Apps Script, klik tombol `Deploy` > `New deployment`.
-    *   Pilih tipe `Web app`.
-    *   Pada bagian `Execute as`, pilih **Me**.
-    *   Pada bagian `Who has access`, pilih **Anyone with Google account** atau **Anyone** (jika ingin bisa diakses publik).
-    *   Klik `Deploy`.
-    *   **Penting**: Google akan meminta otorisasi. Klik `Authorize access`, pilih akun Google Anda, klik `Advanced`, lalu `Go to (unsafe)`. Izinkan semua permission yang diminta.
-    *   Setelah selesai, salin URL Web App yang diberikan. Itulah alamat aplikasi Anda.
-
----
-
 ## 📂 Struktur File Proyek
 
 ```
