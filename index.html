@@ -36,6 +36,13 @@
             },
             animation: {
                 'bounce-slow': 'bounce 3s linear infinite',
+                'gradient-xy': 'gradient-xy 15s ease infinite',
+            },
+            keyframes: {
+                'gradient-xy': {
+                    '0%, 100%': { 'background-size': '400% 400%', 'background-position': 'left center' },
+                    '50%': { 'background-size': '200% 200%', 'background-position': 'right center' }
+                }
             }
           }
         }
@@ -330,8 +337,7 @@
           <button type="submit" id="btn-login" class="w-full bg-primary hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl shadow-lg transform active:scale-[0.98] transition-all mt-4" data-i18n="btn_login">Masuk Sekarang</button>
         </form>
         <p class="text-center text-xs text-slate-400 mt-8"><span data-i18n="app_name">DompetKu Pro</span> ©
-          <span id="current-year"></span>
-        </p>
+          <span id="current-year"></span></p>
       </div>
     </div>
   </div>
@@ -353,7 +359,6 @@
     </div>
 
     <nav class="flex-1 p-4 space-y-1 overflow-y-auto overflow-x-hidden">
-
       <div class="mb-5">
         <p class="nav-text px-2 text-[10px] font-extrabold text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mb-3"
           data-i18n="cat_main">Utama</p>
@@ -383,7 +388,6 @@
             <i class="fa-solid fa-user-gear w-6 text-center text-purple-500 group-hover:scale-110 transition-transform"></i> <span class="nav-text" data-i18n="nav_profile">Profil</span>
         </button>
       </div>
-
     </nav>
     <div
       class="p-4 border-t border-slate-100 dark:border-slate-700 whitespace-nowrap overflow-hidden bg-slate-50/50 dark:bg-darkcard/50">
@@ -397,7 +401,6 @@
 
   <!-- MAIN CONTENT -->
   <div id="main-content" class="flex-1 flex flex-col h-full w-full relative transition-all duration-300">
-
     <header
       class="h-20 bg-white/90 dark:bg-darkcard/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 flex justify-between items-center px-6 sticky top-0 z-30">
       <div class="flex items-center gap-4">
@@ -405,7 +408,6 @@
         <h2 id="page-title" class="text-xl font-bold tracking-wide" data-i18n="nav_dashboard">Dashboard</h2>
       </div>
 
-      <!-- Header Setting Icon -->
       <div class="relative flex items-center" id="dashboard-settings-container">
         <button onclick="toggleDashboardSettings()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shadow-sm" title="Pengaturan">
           <i class="fa-solid fa-gear hover:text-indigo-500 transition-colors"></i>
@@ -449,8 +451,7 @@
       <div
         class="p-5 border-b dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
         <h3 class="font-bold flex items-center gap-2"><i class="fa-solid fa-pen-to-square text-indigo-500"></i>
-          <span data-i18n="modal_input_title">Input Data</span>
-        </h3>
+          <span data-i18n="modal_input_title">Input Data</span></h3>
         <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors"><i class="fa-solid fa-times text-xl"></i></button>
       </div>
       <form id="master-form" onsubmit="saveMaster(event)" class="p-6 space-y-4">
@@ -469,8 +470,7 @@
         class="p-5 border-b dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
         <h3 class="font-bold flex items-center gap-2" id="payment-title">
           <i class="fa-solid fa-money-check-dollar text-emerald-500"></i>
-          <span data-i18n="modal_payment_title">Proses Pembayaran</span>
-        </h3>
+          <span data-i18n="modal_payment_title">Proses Pembayaran</span></h3>
         <button onclick="closePaymentModal()" class="text-slate-400 hover:text-red-500 transition-colors"><i class="fa-solid fa-times text-xl"></i></button>
       </div>
       <form id="payment-form" onsubmit="submitPayment(event)" class="p-6 space-y-4">
@@ -486,12 +486,10 @@
           <input type="text" name="p_nominal" id="p_nominal" data-i18n-ph="ph_amount" onkeyup="formatCurrency(this)" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl outline-none text-sm font-bold focus:ring-2 focus:ring-primary text-start transition-all" dir="ltr" placeholder="0" required data-max="0">
           <p id="error-overpay" class="hidden text-red-500 text-xs font-bold mt-1">
             <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
-            <span data-i18n="err_overpay">Nominal melebihi sisa tagihan!</span>
-          </p>
+            <span data-i18n="err_overpay">Nominal melebihi sisa tagihan!</span></p>
           <p id="error-saldo-pay" class="hidden text-red-500 text-xs font-bold mt-1">
             <i class="fa-solid fa-wallet text-red-500"></i>
-            <span id="error-saldo-pay-text">Saldo sumber dana tidak cukup!</span>
-          </p>
+            <span id="error-saldo-pay-text">Saldo sumber dana tidak cukup!</span></p>
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-400 uppercase mb-2 ms-1" data-i18n="table_source">Sumber Dana</label><select name="p_sumber" id="p_sumber" onchange="validatePaymentInput()" class="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl outline-none text-sm focus:ring-2 focus:ring-primary transition-all" required><option value="">Loading...</option></select>
@@ -506,7 +504,6 @@
 
   <script>
     function updateCurrencyRatesDisplay(rates) {
-        // Fungsi pintar: Bisa baca huruf besar (IDR) maupun kecil (idr) otomatis
         const getRate = (code) => {
             if (!rates) return null;
             return rates[code.toLowerCase()] || rates[code.toUpperCase()];
@@ -515,22 +512,22 @@
         const rateIDR = parseFloat(getRate('idr'));
         const rateSGD = parseFloat(getRate('sgd'));
         const rateMYR = parseFloat(getRate('myr'));
-        const rateXAU = parseFloat(getRate('xau')); // Emas
+        const rateXAU = parseFloat(getRate('xau'));
 
-        // PENGAMAN: Jika kurs Rupiah gagal ditarik, hentikan agar tidak jadi NaN
         if (!rateIDR || isNaN(rateIDR)) return;
 
         const idrPerUsd = rateIDR;
         const idrPerSgd = rateSGD ? (rateIDR / rateSGD) : 0;
         const idrPerMyr = rateMYR ? (rateIDR / rateMYR) : 0;
         
-        let idrPerGramGold = 0;
-        // PENGAMAN: Cek apakah API memberikan data Emas (XAU)
+       let idrPerGramGold = 0;
         if (rateXAU && rateXAU > 0) {
             idrPerGramGold = ((1 / rateXAU) / 31.1034768) * rateIDR;
+            globalGoldPriceIDR = idrPerGramGold; 
+        } else {
+            globalGoldPriceIDR = 0;
         }
         
-        // PENGAMAN FORMAT: Jangan format jika nilainya NaN atau 0
         const fmt = (val) => {
             if (!val || isNaN(val) || val === 0) return "Memuat...";
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(val);
@@ -545,14 +542,11 @@
         if (elSgd) elSgd.innerText = fmt(idrPerSgd);
         if (elMyr) elMyr.innerText = fmt(idrPerMyr);
         
-        // Hanya update card Emas jika datanya ada
         if (elGold) {
             elGold.innerText = idrPerGramGold > 0 ? fmt(idrPerGramGold) : "Data API Libur";
         }
     }
-    // ==========================================
-    // 1. KAMUS BAHASA (i18n) & CURRENCY LOGIC
-    // ==========================================
+
    const translations = {
         'id': {
             language: "Bahasa", hide_nominal: "Sensor Saldo", theme: "Tema Tampilan",
@@ -663,14 +657,10 @@
             live_rates: "Kadar Mata Wang (Live)"
         }
     };
-    // ==========================================
-    // 2. STATE & VARIABLES
-    // ==========================================
 
     let currentLang = localStorage.getItem('appLang') || 'id';
     let currentCurrency = localStorage.getItem('appCurr') || 'IDR';
     
-    // Nilai Default (Akan diupdate via API)
     let exchangeRates = {
         'IDR': 1,
         'USD': 1 / 16000,
@@ -700,20 +690,15 @@
     let localDataTimestamp = '0'; 
     let autoRefreshInterval = null;
     let globalCurrencyRates = null;
+    let globalGoldPriceIDR = 0;
 
     const listKategori = {
         'Masuk': ['GAJI BULANAN','BONUS / THR','PENCAIRAN HUTANG','PELUNASAN PIUTANG','PROFIT BISNIS','LAINNYA'],
         'Keluar': ['JAJAN','BENSIN','ROKOK','MAKAN','BAYAR RENCANA','CICILAN HUTANG','PEMBERIAN PIUTANG','LAINNYA']
     };
 
-    // ==========================================
-    // 3. CORE & INIT FUNCTIONS
-    // ==========================================
-
     document.addEventListener('DOMContentLoaded', () => { 
-       
-         // --- KODE API KURS & EMAS (Sistem Cadangan Ganda) ---
-    fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json')
+        fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json')
         .then(res => res.json())
         .then(data => { 
             if (data && data.usd) {
@@ -730,7 +715,6 @@
         })
         .catch(err => {
             console.warn('API Emas gagal. Menggunakan API Cadangan (Tanpa Emas)...');
-            // FALLBACK: Jika API pertama diblokir, otomatis pakai API kedua (Open Exchange)
             fetch('https://open.er-api.com/v6/latest/USD')
                 .then(r => r.json())
                 .then(d => {
@@ -800,21 +784,18 @@
             });
         }
 
-        // PENGAMAN AJAX: Cek apakah view-input sudah ada di layar
         const vInput = document.getElementById('view-input');
         if (vInput && !vInput.classList.contains('hidden') && tableDataFiltered.length >= 0) {
             updateMasterSummaryCard(tableDataRaw); 
             renderTableSlice();
         }
         
-        // PENGAMAN AJAX: Cek apakah view-history sudah ada di layar
         const vHistory = document.getElementById('view-history');
         if (vHistory && !vHistory.classList.contains('hidden') && historyDataFiltered.length >= 0) {
             renderHistorySlice();
             renderHistoryCharts(historyDataFiltered);
         }
         
-        // PENGAMAN AJAX: Cek form transaksi
         const tJenis = document.getElementById('t_jenis');
         if (tJenis) {
             setJenis(tJenis.value);
@@ -839,7 +820,6 @@
             el.innerText = currentCurrency;
         });
         
-        // PENGAMAN AJAX:
         const vDash = document.getElementById('view-dashboard');
         if (vDash && !vDash.classList.contains('hidden')) {
             loadDashboard();
@@ -907,7 +887,6 @@
             localStorage.theme='light'; 
         } 
         
-        // PENGAMAN AJAX:
         const vDash = document.getElementById('view-dashboard');
         if (vDash && !vDash.classList.contains('hidden')) { 
             loadDashboard(); 
@@ -962,7 +941,6 @@
     }
     
     function nav(v) { 
-        // 1. Ubah styling tombol menu (Tetap sama)
         document.querySelectorAll('.nav-btn').forEach(b => { 
             b.classList.remove('border-indigo-400', 'dark:border-indigo-500', 'border-emerald-400', 'dark:border-emerald-500', 'border-amber-400', 'dark:border-amber-500', 'border-blue-400', 'dark:border-blue-500', 'border-purple-400', 'dark:border-purple-500', 'bg-slate-50', 'dark:bg-slate-800/50'); 
             b.classList.add('border-slate-100', 'dark:border-slate-800/80'); 
@@ -979,21 +957,17 @@
             if(v==='profile') ab.classList.add('border-purple-400', 'dark:border-purple-500');
         }
         
-        // 2. Ubah Judul
         let titleKey = 'nav_' + v;
         if (v === 'input') titleKey = 'nav_master';
         document.getElementById('page-title').innerText = translations[currentLang][titleKey] || v.toUpperCase(); 
         
-        // Tutup Sidebar Mobile jika terbuka
         if (window.innerWidth < 768) { 
             document.body.classList.remove('mobile-sidebar-open'); 
             document.getElementById('backdrop').classList.add('hidden'); 
         } 
         
-        // 3. LOGIKA AJAX & CACHING TAMPILAN
         const appContent = document.getElementById('app-content');
         
-        // Sembunyikan semua view yang sudah ada di container
         Array.from(appContent.children).forEach(child => {
             child.classList.add('hidden');
         });
@@ -1002,31 +976,24 @@
         const existingView = document.getElementById(targetViewId);
 
         if (existingView) {
-            // JIKA VIEW SUDAH PERNAH DILOAD (CACHED)
             existingView.classList.remove('hidden');
-            triggerViewLogic(v); // Jalankan fungsi Javascriptnya
+            triggerViewLogic(v); 
         } else {
-            // JIKA VIEW BELUM PERNAH DILOAD (FETCH KE SERVER)
             showLoader('loading');
             google.script.run.withSuccessHandler(htmlString => {
                 hideLoader();
                 
-                // Masukkan HTML baru ke dalam app-content
                 const wrapper = document.createElement('div');
                 wrapper.innerHTML = htmlString;
                 appContent.appendChild(wrapper.firstElementChild);
                 
-                // Terapkan bahasa (i18n) pada elemen baru
                 setLanguage(currentLang);
                 
-                // Jalankan fungsi Javascriptnya
                 triggerViewLogic(v);
-            }).getViewHtml('view_' + v); // Panggil view_dashboard, view_history, dll
+            }).getViewHtml('view_' + v); 
         }
     }
 
-    // Fungsi Pembantu untuk Trigger Skrip sesuai Menu
-    // Fungsi Pembantu untuk Trigger Skrip sesuai Menu
     function triggerViewLogic(v) {
         if (v === 'dashboard') {
             loadDashboard(); 
@@ -1039,20 +1006,13 @@
         } else if (v === 'history') { 
             loadHistory();
             
-            // --- KODE PENGAMAN KURS ---
-            // Begitu menu history diklik dan HTML-nya muncul, 
-            // tembakkan data kurs yang tadi sudah disimpan di memori.
             if (globalCurrencyRates) {
                 setTimeout(() => {
                     updateCurrencyRatesDisplay(globalCurrencyRates);
-                }, 100); // Beri jeda 0.1 detik agar HTML ter-render sempurna dulu
+                }, 100); 
             }
         }
     }
-
-    // ==========================================
-    // 4. DATA FORMATTING & VALIDATION
-    // ==========================================
 
     function formatRupiah(n) {
         let num = parseFloat(n) || 0;
@@ -1161,10 +1121,6 @@
         } 
     }
 
-    // ==========================================
-    // 5. AUTH & PROFILE
-    // ==========================================
-
     function handleLogin(e) { 
         e.preventDefault(); 
         const u = document.getElementById('username').value; 
@@ -1242,10 +1198,6 @@
         }).changeUserPassword(currentUser, oldP, newP); 
     }
 
-    // ==========================================
-    // 6. DASHBOARD LOGIC
-    // ==========================================
-    
     function startAutoRefresh() {
         if(autoRefreshInterval) {
             clearInterval(autoRefreshInterval);
@@ -1452,10 +1404,6 @@
         }); 
     }
 
-    // ==========================================
-    // 7. HISTORY & AI CHAT MODULE
-    // ==========================================
-    
     function parseHistoryDate(dateStr) {
         if (!dateStr) return new Date(0);
         if (dateStr.includes('/')) {
@@ -1893,6 +1841,7 @@
             
         }).askGeminiAI(text, summary);
     }
+
     // ==========================================
     // 8. MASTER DATA LOGIC
     // ==========================================
@@ -2013,11 +1962,13 @@
         } 
         
         const card = document.getElementById('master-summary-card'); 
-        card.className = `rounded-3xl p-6 text-white shadow-lg mb-6 relative overflow-hidden transition-all duration-500 bg-gradient-to-r ${colorClass}`; 
-        document.getElementById('master-total-label').innerText = label; 
-        document.getElementById('master-total-icon').className = `fa-solid ${iconClass} text-3xl text-white`; 
-        document.getElementById('master-total-count').innerText = `${data.length} ${t.data_registered}`; 
-        animateValue(document.getElementById('master-total-value'), 0, total, 1000); 
+        if(card) {
+            card.className = `rounded-3xl p-6 text-white shadow-lg mb-6 relative overflow-hidden transition-all duration-500 bg-gradient-to-r ${colorClass}`; 
+            document.getElementById('master-total-label').innerText = label; 
+            document.getElementById('master-total-icon').className = `fa-solid ${iconClass} text-3xl text-white`; 
+            document.getElementById('master-total-count').innerText = `${data.length} ${t.data_registered}`; 
+            animateValue(document.getElementById('master-total-value'), 0, total, 1000); 
+        }
     }
     
     function handleSearch(k) { 
@@ -2046,11 +1997,13 @@
         const th = document.getElementById('table-head-row'); 
         const t = translations[currentLang];
         
+        if(!tb || !th) return;
+
         let h = [t.th_no]; 
         if (currentMasterType === 'hutang' || currentMasterType === 'piutang') {
             h.push(...[t.th_type, t.table_name, t.table_source, t.th_awal, t.th_sisa, t.th_status]); 
         } else if (currentMasterType === 'investasi') {
-            h.push(...[t.table_name, t.table_category, t.th_val, t.table_date]); 
+            h.push(...[t.table_name, t.table_category, t.th_val, 'Harga Emas', 'Gramasi', t.table_date]); 
         } else if (currentMasterType === 'rencana') {
             h.push(...[t.table_name, t.th_type, t.th_budget, t.table_date]); 
         } else if (currentMasterType === 'tabungan') {
@@ -2066,9 +2019,14 @@
         const end = start + rowsPerPage;
         const sliced = tableDataFiltered.slice(start, end); 
         
-        document.getElementById('page-info').innerText = sliced.length === 0 ? t.table_no_data : `${t.show} ${start+1}-${Math.min(end,tableDataFiltered.length)} of ${tableDataFiltered.length}`; 
-        document.getElementById('btn-prev').disabled = currentPage === 1; 
-        document.getElementById('btn-next').disabled = end >= tableDataFiltered.length; 
+        const pageInfo = document.getElementById('page-info');
+        if(pageInfo) pageInfo.innerText = sliced.length === 0 ? t.table_no_data : `${t.show} ${start+1}-${Math.min(end,tableDataFiltered.length)} of ${tableDataFiltered.length}`; 
+        
+        const btnPrev = document.getElementById('btn-prev');
+        if(btnPrev) btnPrev.disabled = currentPage === 1; 
+        
+        const btnNext = document.getElementById('btn-next');
+        if(btnNext) btnNext.disabled = end >= tableDataFiltered.length; 
         
         tb.innerHTML = ''; 
         if (!sliced.length) {
@@ -2087,7 +2045,21 @@
             if (currentMasterType === 'hutang' || currentMasterType === 'piutang') {
                 tds += `<td class="px-4 py-3">${i.kategori}</td><td class="px-4 py-3 whitespace-nowrap font-medium">${i.keterangan}</td><td class="px-4 py-3">${i.sumber}</td><td class="px-4 py-3 nominal-card-value text-start" dir="ltr">${formatRupiah(i.saldo_awal)}</td><td class="px-4 py-3 font-bold nominal-card-value text-start" dir="ltr">${formatRupiah(i.saldo_akhir)}</td><td class="px-4 py-3">${statusDisplay}</td>`; 
             } else if (currentMasterType === 'investasi') {
-                tds += `<td class="px-4 py-3 font-bold">${i.nama}</td><td class="px-4 py-3">${i.kategori}</td><td class="px-4 py-3 text-emerald-600 font-bold nominal-card-value text-start" dir="ltr">${formatRupiah(i.saldo)}</td><td class="px-4 py-3">${i.tanggal}</td>`; 
+                
+                let catUpper = String(i.kategori || '').toUpperCase();
+                let isEmas = ['EMAS', 'EMAS DIGITAL', 'EMAS FISIK'].includes(catUpper);
+                let valEmas = '-';
+                let valGram = '-';
+                
+                if (isEmas && globalGoldPriceIDR > 0) {
+                    let saldoAset = parseFloat(i.saldo) || 0;
+                    let gramasi = saldoAset / globalGoldPriceIDR;
+                    valEmas = formatRupiah(globalGoldPriceIDR);
+                    valGram = new Intl.NumberFormat('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(gramasi) + ' g';
+                }
+
+                tds += `<td class="px-4 py-3 font-bold">${i.nama}</td><td class="px-4 py-3">${i.kategori}</td><td class="px-4 py-3 text-emerald-600 font-bold nominal-card-value text-start" dir="ltr">${formatRupiah(i.saldo)}</td><td class="px-4 py-3 text-end whitespace-nowrap">${valEmas}</td><td class="px-4 py-3 text-end font-bold text-amber-500 whitespace-nowrap">${valGram}</td><td class="px-4 py-3 text-sm text-slate-400">${i.tanggal}</td>`; 
+
             } else if (currentMasterType === 'rencana') {
                 tds += `<td class="px-4 py-3 font-bold">${i.nama}</td><td class="px-4 py-3">${i.kategori}</td><td class="px-4 py-3 font-bold nominal-card-value text-start" dir="ltr">${formatRupiah(i.saldo)}</td><td class="px-4 py-3">${i.tanggal}</td>`; 
             } else if (currentMasterType === 'tabungan') {
@@ -2323,24 +2295,30 @@
         const trans = translations[currentLang];
         
         Object.values(btns).forEach(b => {
-            b.className = "flex-1 py-3 rounded-lg font-bold text-sm text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"; 
+            if (b) b.className = "flex-1 py-3 rounded-lg font-bold text-sm text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"; 
         }); 
         
         const activeClass = typeForm === 'Masuk' ? "bg-emerald-100 text-emerald-700 shadow-sm" : (typeForm === 'Keluar' ? "bg-red-100 text-red-700 shadow-sm" : "bg-blue-100 text-blue-700 shadow-sm"); 
-        btns[typeForm].className = `flex-1 py-3 rounded-lg font-bold text-sm transition-all ${activeClass}`; 
+        if (btns[typeForm]) btns[typeForm].className = `flex-1 py-3 rounded-lg font-bold text-sm transition-all ${activeClass}`; 
         
-        document.getElementById('div-tujuan').classList.toggle('hidden', typeForm !== 'Transfer'); 
-        document.getElementById('div-kategori').classList.toggle('hidden', typeForm === 'Transfer'); 
+        const tujuandiv = document.getElementById('div-tujuan');
+        if (tujuandiv) tujuandiv.classList.toggle('hidden', typeForm !== 'Transfer'); 
         
-        document.getElementById('label-sumber').innerText = typeForm === 'Transfer' ? trans.from_account : (typeForm === 'Masuk' ? trans.to_account : trans.from_account); 
+        const katdiv = document.getElementById('div-kategori');
+        if (katdiv) katdiv.classList.toggle('hidden', typeForm === 'Transfer'); 
+        
+        const lsumber = document.getElementById('label-sumber');
+        if (lsumber) lsumber.innerText = typeForm === 'Transfer' ? trans.from_account : (typeForm === 'Masuk' ? trans.to_account : trans.from_account); 
         
         if (typeForm !== 'Transfer') { 
             const sel = document.getElementsByName('t_kategori')[0]; 
-            sel.innerHTML = ''; 
-            listKategori[typeForm].forEach(k => {
-                sel.innerHTML += `<option value="${k}">${k}</option>`;
-            }); 
-            monitorKategori(sel); 
+            if (sel) {
+                sel.innerHTML = ''; 
+                listKategori[typeForm].forEach(k => {
+                    sel.innerHTML += `<option value="${k}">${k}</option>`;
+                }); 
+                monitorKategori(sel); 
+            }
         } else { 
             toggleKeteranganInput(false); 
         }
@@ -2364,6 +2342,8 @@
         const tText = document.getElementById('input-keterangan-text');
         const sSel = document.getElementById('input-keterangan-select');
         const mMan = document.getElementById('input-keterangan-manual'); 
+        
+        if (!tText || !sSel || !mMan) return;
         
         if (isD) {
             tText.classList.add('hidden');
@@ -2390,12 +2370,15 @@
             tText.setAttribute('required','true');
             tText.value = '';
         }
-        document.getElementsByName('t_nominal')[0].value = '';
+        const tNom = document.getElementsByName('t_nominal')[0];
+        if (tNom) tNom.value = '';
     }
 
     function loadDropdown(type) { 
         toggleKeteranganInput(true); 
         const s = document.getElementById('input-keterangan-select'); 
+        if(!s) return;
+        
         const trans = translations[currentLang];
         s.innerHTML = '<option>Loading...</option>'; 
         
