@@ -545,6 +545,19 @@
         if (elGold) {
             elGold.innerText = idrPerGramGold > 0 ? fmt(idrPerGramGold) : "Data API Libur";
         }
+
+        // Master View Live Rates
+        const elMasterUsd = document.getElementById('master-rate-usd');
+        const elMasterSgd = document.getElementById('master-rate-sgd');
+        const elMasterMyr = document.getElementById('master-rate-myr');
+        const elMasterGold = document.getElementById('master-rate-gold');
+        
+        if (elMasterUsd) elMasterUsd.innerText = fmt(idrPerUsd);
+        if (elMasterSgd) elMasterSgd.innerText = fmt(idrPerSgd);
+        if (elMasterMyr) elMasterMyr.innerText = fmt(idrPerMyr);
+        if (elMasterGold) {
+            elMasterGold.innerText = idrPerGramGold > 0 ? fmt(idrPerGramGold) : "Data API Libur";
+        }
     }
 
    const translations = {
@@ -1003,6 +1016,11 @@
             document.getElementById('t_tanggal').valueAsDate = new Date();
         } else if (v === 'input') {
             switchMaster(currentMasterType); 
+            if (globalCurrencyRates) {
+                setTimeout(() => {
+                    updateCurrencyRatesDisplay(globalCurrencyRates);
+                }, 100);
+            }
         } else if (v === 'history') { 
             loadHistory();
             
@@ -1887,14 +1905,50 @@
             grandTotal += val; 
         });
         
+        // Calculate equivalents
+        const rateUSD = exchangeRates['USD'] || (1/16000);
+        const rateSGD = exchangeRates['SGD'] || (1/11800);
+        const rateMYR = exchangeRates['MYR'] || (1/3400);
+        
+        const equivUSD = grandTotal * rateUSD;
+        const equivSGD = grandTotal * rateSGD;
+        const equivMYR = grandTotal * rateMYR;
+        const equivGold = globalGoldPriceIDR > 0 ? (grandTotal / globalGoldPriceIDR) : 0;
+        
+        const fUsd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(equivUSD);
+        const fSgd = new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD' }).format(equivSGD);
+        const fMyr = new Intl.NumberFormat('ms-MY', { style: 'currency', currency: 'MYR' }).format(equivMYR);
+        const fGold = equivGold > 0 ? (new Intl.NumberFormat('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(equivGold) + ' g') : '-';
+
         let html = `
-        <div class="bg-gradient-to-br from-indigo-600 to-blue-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden bounce-card border border-white/10">
-            <div class="relative z-10">
-                <p class="text-[10px] font-bold opacity-80 uppercase tracking-widest mb-1">TOTAL</p>
-                <h3 class="text-xl font-bold tracking-tight nominal-card-value text-start" dir="ltr">${formatRupiah(grandTotal)}</h3>
+        <div class="bg-gradient-to-br from-indigo-600 to-blue-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden bounce-card border border-white/10 col-span-1 md:col-span-2 xl:col-span-4">
+            <div class="relative z-10 flex justify-between items-start">
+                <div>
+                    <p class="text-[10px] font-bold opacity-80 uppercase tracking-widest mb-1">TOTAL INVESTASI</p>
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-tight nominal-card-value text-start" dir="ltr">${formatRupiah(grandTotal)}</h3>
+                </div>
+                <div class="p-2 bg-white/20 rounded-xl backdrop-blur-sm">
+                    <i class="fa-solid fa-vault text-lg text-white"></i>
+                </div>
             </div>
-            <div class="absolute end-2 bottom-2 p-2 bg-white/20 rounded-xl backdrop-blur-sm">
-                <i class="fa-solid fa-vault text-lg text-white"></i>
+            <!-- Equivalents breakdown inside Investment Grand Total Card -->
+            <div class="relative z-10 mt-4 pt-3 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-[10px]">
+                <div>
+                    <p class="opacity-70 font-semibold mb-0.5">USD EQUIV</p>
+                    <p class="text-xs font-bold nominal-card-value text-start">${fUsd}</p>
+                </div>
+                <div>
+                    <p class="opacity-70 font-semibold mb-0.5">SGD EQUIV</p>
+                    <p class="text-xs font-bold nominal-card-value text-start">${fSgd}</p>
+                </div>
+                <div>
+                    <p class="opacity-70 font-semibold mb-0.5">MYR EQUIV</p>
+                    <p class="text-xs font-bold nominal-card-value text-start">${fMyr}</p>
+                </div>
+                <div>
+                    <p class="opacity-70 font-semibold mb-0.5">GOLD EQUIV</p>
+                    <p class="text-xs font-bold text-amber-300 text-start">${fGold}</p>
+                </div>
             </div>
         </div>`;
         
@@ -1968,6 +2022,26 @@
             document.getElementById('master-total-icon').className = `fa-solid ${iconClass} text-3xl text-white`; 
             document.getElementById('master-total-count').innerText = `${data.length} ${t.data_registered}`; 
             animateValue(document.getElementById('master-total-value'), 0, total, 1000); 
+            
+            // Calculate equivalent foreign currency and gold values
+            const rateUSD = exchangeRates['USD'] || (1/16000);
+            const rateSGD = exchangeRates['SGD'] || (1/11800);
+            const rateMYR = exchangeRates['MYR'] || (1/3400);
+            
+            const equivUSD = total * rateUSD;
+            const equivSGD = total * rateSGD;
+            const equivMYR = total * rateMYR;
+            const equivGold = globalGoldPriceIDR > 0 ? (total / globalGoldPriceIDR) : 0;
+            
+            const elEquivUsd = document.getElementById('master-equiv-usd');
+            const elEquivSgd = document.getElementById('master-equiv-sgd');
+            const elEquivMyr = document.getElementById('master-equiv-myr');
+            const elEquivGold = document.getElementById('master-equiv-gold');
+            
+            if (elEquivUsd) elEquivUsd.innerText = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(equivUSD);
+            if (elEquivSgd) elEquivSgd.innerText = new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD' }).format(equivSGD);
+            if (elEquivMyr) elEquivMyr.innerText = new Intl.NumberFormat('ms-MY', { style: 'currency', currency: 'MYR' }).format(equivMYR);
+            if (elEquivGold) elEquivGold.innerText = equivGold > 0 ? (new Intl.NumberFormat('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 4 }).format(equivGold) + ' g') : '-';
         }
     }
     

@@ -52,21 +52,35 @@
     *   [Groq API](https://groq.com/) untuk layanan AI Chat.
     *   [Currency API](https://github.com/fawazahmed0/currency-api) untuk data kurs mata uang.
 
+---
+
+## ⚙️ Cara Setup API Key Groq (Asisten AI)
+
+Untuk menjaga keamanan kunci API (tidak di-hardcode di kode sumber), Anda perlu menyimpannya di **Script Properties** Google Apps Script:
+
+1. Di editor Google Apps Script, klik ikon **Settings** (⚙️ / Setelan Project) di menu samping kiri.
+2. Scroll ke bagian **Script Properties** (Properti Skrip).
+3. Klik **Add script property** (Tambahkan properti skrip).
+4. Masukkan nama properti: `GROQ_API_KEY`
+5. Masukkan nilai properti: `gsk_xxxx...` (API Key Groq milik Anda).
+6. Klik **Save script properties** (Simpan properti skrip).
+
+---
+
 ## 📂 Struktur File Proyek
 
 ```
-eclasp/isidompet/
-├── Code.js               # Logika backend (Google Apps Script)
-├── app.js                # Logika frontend (JavaScript)
-├── index.html            # File HTML utama (kerangka aplikasi)
+isidompet/
+├── Code.js               # Logika backend & API Fetcher (Google Apps Script)
+├── index.html            # File HTML utama & Logic controller (Frontend)
 ├── view_dashboard.html   # Tampilan halaman Dashboard
 ├── view_transaksi.html   # Tampilan halaman Input Transaksi
-├── view_input.html       # Tampilan halaman Master Data
+├── view_input.html       # Tampilan halaman Master Data (Dengan Live Kurs)
 ├── view_history.html     # Tampilan halaman History & Laporan
 ├── view_profile.html     # Tampilan halaman Profil
 ├── assets/
 │   └── screenshot.png    # Gambar screenshot aplikasi
-└── README.md             # File ini
+└── README.md             # Dokumentasi proyek ini
 ```
 
 ---

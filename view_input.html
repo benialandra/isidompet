@@ -15,6 +15,38 @@
           <i class="fa-solid fa-chevron-down absolute end-4 top-4 text-slate-400 pointer-events-none"></i>
         </div>
 
+        <!-- LIVE RATES MASTER VIEW -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="bg-white dark:bg-darkcard p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-3 shadow-sm transition-all hover:scale-[1.02]">
+            <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-500"><i class="fa-solid fa-dollar-sign"></i></div>
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase">USD / IDR</p>
+              <p class="text-sm font-bold text-slate-700 dark:text-slate-200" id="master-rate-usd">Memuat...</p>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-darkcard p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-3 shadow-sm transition-all hover:scale-[1.02]">
+            <div class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-500"><i class="fa-solid fa-dollar-sign"></i></div>
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase">SGD / IDR</p>
+              <p class="text-sm font-bold text-slate-700 dark:text-slate-200" id="master-rate-sgd">Memuat...</p>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-darkcard p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-3 shadow-sm transition-all hover:scale-[1.02]">
+            <div class="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500"><i class="fa-solid fa-money-bill-wave"></i></div>
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase">MYR / IDR</p>
+              <p class="text-sm font-bold text-slate-700 dark:text-slate-200" id="master-rate-myr">Memuat...</p>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-darkcard p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-3 shadow-sm transition-all hover:scale-[1.02]">
+            <div class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500"><i class="fa-solid fa-coins"></i></div>
+            <div>
+              <p class="text-[10px] text-slate-400 font-bold uppercase">EMAS / GRAM</p>
+              <p class="text-sm font-bold text-slate-700 dark:text-slate-200" id="master-rate-gold">Memuat...</p>
+            </div>
+          </div>
+        </div>
+
         <div id="investasi-summary-container" class="hidden grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
         </div>
 
@@ -30,6 +62,25 @@
             </div>
             <div class="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
               <i id="master-total-icon" class="fa-solid fa-building-columns text-3xl text-white"></i>
+            </div>
+          </div>
+          <!-- Equivalent Conversions Panel -->
+          <div class="relative z-10 mt-6 pt-4 border-t border-white/20 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+            <div>
+              <p class="opacity-70 font-semibold mb-0.5">USD EQUIVALENT</p>
+              <p class="text-base font-bold nominal-card-value text-start" id="master-equiv-usd">$ 0.00</p>
+            </div>
+            <div>
+              <p class="opacity-70 font-semibold mb-0.5">SGD EQUIVALENT</p>
+              <p class="text-base font-bold nominal-card-value text-start" id="master-equiv-sgd">S$ 0.00</p>
+            </div>
+            <div>
+              <p class="opacity-70 font-semibold mb-0.5">MYR EQUIVALENT</p>
+              <p class="text-base font-bold nominal-card-value text-start" id="master-equiv-myr">RM 0.00</p>
+            </div>
+            <div>
+              <p class="opacity-70 font-semibold mb-0.5">GOLD EQUIVALENT</p>
+              <p class="text-base font-bold text-amber-300 text-start" id="master-equiv-gold">0.00 g</p>
             </div>
           </div>
         </div>
