@@ -998,7 +998,9 @@
                 
                 const wrapper = document.createElement('div');
                 wrapper.innerHTML = htmlString;
-                appContent.appendChild(wrapper.firstElementChild);
+                const newElem = wrapper.firstElementChild;
+                appContent.appendChild(newElem);
+                newElem.classList.remove('hidden');
                 
                 setLanguage(currentLang);
                 
